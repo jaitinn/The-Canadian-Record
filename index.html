@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Canadian Record — Canadian history, carefully told.">
+  <title>The Canadian Record | Canadian History</title>
+  <style>
+    :root {
+      --paper: #f3f0e8;
+      --ink: #171916;
+      --muted: #696b64;
+      --red: #a6312b;
+      --line: #d5d0c5;
+      --dark: #20231f;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .topline { height: 5px; background: var(--red); }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    header { border-bottom: 1px solid var(--line); }
+    .masthead { padding: 30px 0 22px; text-align: center; }
+    .eyebrow, .nav, .kicker, .meta, .button, footer, .empty, .episode-count {
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .eyebrow { color: var(--red); font-size: 10px; font-weight: 700; }
+    .brand {
+      margin: 9px 0 5px;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: .98;
+      letter-spacing: -.055em;
+      font-weight: 700;
+    }
+    .tagline { color: var(--muted); font-size: 14px; font-style: italic; }
+    nav {
+      display: flex; justify-content: center; gap: 34px;
+      border-top: 1px solid var(--line); padding: 14px 0;
+    }
+    .nav { font-size: 10px; text-decoration: none; font-weight: 700; }
+    .nav:hover { color: var(--red); }
+    .hero {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 42px;
+      padding: 62px 0 58px; align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker { color: var(--red); font-size: 10px; font-weight: 700; }
+    h1 { font-size: clamp(42px, 6vw, 76px); line-height: .98; letter-spacing: -.055em; margin: 15px 0 20px; max-width: 720px; }
+    .hero-copy { color: #4d5049; font-size: 18px; line-height: 1.55; max-width: 580px; }
+    .hero-art {
+      min-height: 330px; background: #d4d0c5; position: relative; overflow: hidden;
+      display: flex; align-items: end; padding: 22px;
+      background-image: linear-gradient(180deg, transparent 35%, rgba(0,0,0,.68)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85");
+      background-size: cover; background-position: center;
+      filter: grayscale(100%);
+    }
+    .hero-art::after { content: "CANADA • HISTORY • ARCHIVE"; color: white; font: 700 10px Arial, sans-serif; letter-spacing: .16em; }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 2px solid var(--ink); padding-bottom: 12px; margin-bottom: 24px;
+    }
+    .section-head h2 { margin: 0; font-size: 30px; letter-spacing: -.035em; }
+    .episode-count { color: var(--muted); font-size: 9px; }
+    .episodes { padding: 48px 0 76px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px 22px; }
+    .card { min-width: 0; }
+    .cover {
+      aspect-ratio: 16 / 10; background: #d8d4ca; overflow: hidden;
+      position: relative; border: 1px solid #c9c4b8;
+    }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(100%); transition: transform .35s ease; }
+    .card:hover .cover img { transform: scale(1.035); }
+    .cover-fallback {
+      width: 100%; height: 100%; display: grid; place-items: center;
+      color: #77766e; font: 700 10px Arial, sans-serif; letter-spacing: .16em;
+    }
+    .card .meta { color: var(--red); font-size: 9px; font-weight: 700; margin-top: 15px; }
+    .card h3 { font-size: 25px; line-height: 1.08; letter-spacing: -.035em; margin: 8px 0; }
+    .card p { color: #55574f; font-size: 15px; line-height: 1.5; margin: 0 0 14px; }
+    .watch {
+      display: inline-block; font: 700 10px Arial, sans-serif; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--red);
+      padding-bottom: 4px;
+    }
+    .watch:hover { color: var(--red); }
+    .about {
+      background: var(--dark); color: var(--paper); padding: 54px 0;
+    }
+    .about-inner { display: grid; grid-template-columns: .7fr 1.3fr; gap: 50px; align-items: start; }
+    .about h2 { font-size: 36px; line-height: 1; letter-spacing: -.04em; margin: 0; }
+    .about p { color: #c7c8c0; font-size: 17px; line-height: 1.6; margin: 0; max-width: 680px; }
+    footer { background: #171916; color: #aaa99f; padding: 23px 0; font-size: 9px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-inner a { text-decoration: none; }
+    .footer-inner a:hover { color: white; }
+    .no-episodes { grid-column: 1 / -1; padding: 36px 0; border-top: 1px solid var(--line); color: var(--muted); font-style: italic; }
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 32px, var(--max)); }
+      nav { gap: 18px; flex-wrap: wrap; }
+      .hero { grid-template-columns: 1fr; gap: 26px; padding: 42px 0; }
+      .hero-art { min-height: 230px; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 26px 14px; }
+      .card h3 { font-size: 21px; }
+      .about-inner { grid-template-columns: 1fr; gap: 18px; }
+    }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .section-head h2 { font-size: 26px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <div class="wrap masthead">
+      <div class="eyebrow">An independent Canadian history project</div>
+      <div class="brand">THE CANADIAN RECORD</div>
+      <div class="tagline">Canadian history. Stories that matter.</div>
+    </div>
+    <nav aria-label="Main navigation">
+      <a class="nav" href="#home">Home</a>
+      <a class="nav" href="#episodes">Episodes</a>
+      <a class="nav" href="#about">About</a>
+      <a class="nav" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube ↗</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="wrap hero">
+      <div>
+        <div class="kicker">History, beyond the headlines</div>
+        <h1>The stories that shaped Canada.</h1>
+        <p class="hero-copy">Explore the people, decisions, conflicts, and turning points that helped shape the country we know today.</p>
+      </div>
+      <div class="hero-art" role="img" aria-label="Archival-inspired Canadian landscape photograph"></div>
+    </section>
+
+    <section class="wrap episodes" id="episodes">
+      <div class="section-head">
+        <h2>Latest episodes</h2>
+        <div class="episode-count" id="episode-count">0 episodes</div>
+      </div>
+      <div class="grid" id="episode-grid">
+        <div class="no-episodes">New episodes will appear here.</div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="wrap about-inner">
+        <h2>About<br>the Record</h2>
+        <p>The Canadian Record explores Canada's past through documentary-style stories, historical photographs, and carefully researched details. From major world events to the moments that changed life at home, each episode looks at the history behind the story.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> The Canadian Record</span>
+      <span>Canadian history, carefully told.</span>
+    </div>
+  </footer>
+
+  <script>
+    function youtubeEmbed(url) {
+      if (!url) return "";
+      try {
+        const u = new URL(url);
+        let id = "";
+        if (u.hostname.includes("youtu.be")) id = u.pathname.slice(1);
+        else if (u.hostname.includes("youtube.com")) {
+          id = u.searchParams.get("v") || (u.pathname.includes("/embed/") ? u.pathname.split("/embed/")[1] : "");
+        }
+        return id ? `https://www.youtube-nocookie.com/embed/${id}` : url;
+      } catch { return url; }
+    }
+
+    async function loadEpisodes() {
+      const grid = document.getElementById("episode-grid");
+      try {
+        const response = await fetch("episodes.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("Could not load episodes.json");
+        const data = await response.json();
+        const episodes = (data.episodes || []).filter(ep =>
+          ep.showing === true && ep.name && ep.name.trim()
+        );
+
+        document.getElementById("episode-count").textContent =
+          `${episodes.length} ${episodes.length === 1 ? "episode" : "episodes"}`;
+
+        if (!episodes.length) {
+          grid.innerHTML = '<div class="no-episodes">New episodes will appear here.</div>';
+          return;
+        }
+
+        grid.innerHTML = episodes.map(ep => {
+          const cover = ep.cover
+            ? `<img src="${escapeHtml(ep.cover)}" alt="${escapeHtml(ep.name)} cover" loading="lazy">`
+            : '<div class="cover-fallback">THE CANADIAN RECORD</div>';
+          const video = youtubeEmbed(ep.video || "");
+          const link = video
+            ? `<a class="watch" href="${escapeHtml(ep.video)}" target="_blank" rel="noopener">Watch episode ↗</a>`
+            : "";
+          return `<article class="card">
+            <div class="cover">${cover}</div>
+            <div class="meta">The Canadian Record</div>
+            <h3>${escapeHtml(ep.name)}</h3>
+            <p>${escapeHtml(ep.description || "")}</p>
+            ${link}
+          </article>`;
+        }).join("");
+      } catch (error) {
+        grid.innerHTML = '<div class="no-episodes">Episodes could not load. Open this site through a local web server, or publish both index.html and episodes.json together.</div>';
+        console.error(error);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    loadEpisodes();
+  </script>
+</body>
+</html>
